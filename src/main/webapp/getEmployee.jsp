@@ -1,9 +1,11 @@
-<%-- <%@page import="java.util.stream.Collectors"%>
+<%@page import="java.util.stream.Collectors"%>
 <%@page import="com.ideas2it.model.Employee"%>
 <%@page import="com.ideas2it.model.Project"%>
-<%@page import="java.util.List"%> --%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="getEmployeeById" method="post">
+
+    ${employee}
+	<form action="employee/getEmployeeById" method="get">
 		<table>
 			<tr>
 				<td><label for ="id">Enter the id</label></td>
@@ -22,10 +26,11 @@
 				<td><input type="submit" value="Display"></td>
 			</tr>
 			</form>
-			<%=  session.getAttribute("Employee") %>
 			
-<%-- 			<%
-			Employee employee = (Employee) session.getAttribute("Employee");
+			
+			
+		<%-- 	<%
+			Employee employee = (Employee) session.getAttribute("employee");
 			if (null != employee) {
 			%>
 			
@@ -112,8 +117,7 @@
 			<%
 			}
 			}
-			%> --%>
-		</table>
-	</form>
+			%> 
+		</table> --%>
 </body>
 </html>

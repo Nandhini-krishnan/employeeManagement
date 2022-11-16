@@ -8,7 +8,7 @@
 </head>
 <body>
     <h3>Choose the below option:</h3>
-	<a href="insertEmployee.jsp"> <input type="button"
+	<a href="employee"> <input type="button"
 		value="Insert Employee">
 	</a>
 	<br>

@@ -4,6 +4,8 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +13,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-	List<Employee> employees = (List<Employee>) session.getAttribute("Employees");
-	System.out.println(employees);
-	if (null != employees) {
-		System.out.println(employees);
-		if (!employees.isEmpty()) {
+    ${employees}
+    <%
+	List<Employee> employees = (List<Employee>) request.getAttribute("employees");
+	if (null != employees && !employees.isEmpty()) {
 	%>
 	<%
 	for (Employee employee : employees) {
@@ -109,9 +109,9 @@
 	</tr>
 	<%
 	}
-	}
-	}
-	%>
-	</table>
+	} else { %>
+		${message}
+	<% } %>
+	</table> 
 </body>
 </html>

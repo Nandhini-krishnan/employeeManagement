@@ -23,24 +23,11 @@ public interface EmployeeService {
      * To Create the employee.
      * </p>
      *
-     * @param  name - the employee name to be added
-     * @param  address - the employee address to be added
-     * @param  bloodGroup - the employee blood group to be added
-     * @param  dateOfBirth - the employee date of birth to be added
-     * @param  hasExperience - the employee experience to be added
-     * @param  previousOrganisationName - the employee organisation name to be added
-     * @param  domainName - the employee domain name to be added
+     * @param  employee - the employee to be created
      * @return the created employee
      * @throws EmployeeManagementException - if any hibernate exception is occur
      */
-    public Employee createEmployee(
-	    String name,
-	    String address,
-	    BloodGroup bloodGroup,
-	    Date dateOfBirth,
-	    boolean isExperienced,
-	    Date dateOfJoin,
-	    String previousOrganisationName) throws EmployeeManagementException;
+    public Employee createEmployee(Employee employee) throws EmployeeManagementException;
 
     /**
      * <p>

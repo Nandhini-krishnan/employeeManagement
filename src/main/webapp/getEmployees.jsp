@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="getEmployees">
+	<form method="get" action="employee/getEmployees">
 		<table>
 			<tr>
 				<td><input type="submit" value="Display All Employees"></td>

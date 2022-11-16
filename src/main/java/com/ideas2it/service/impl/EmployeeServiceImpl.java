@@ -29,16 +29,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * {@inheritdoc}
 	 */
 	@Override
-	public Employee createEmployee(String name, String address, BloodGroup bloodGroup, Date dateOfBirth,
-			boolean isExperienced, Date dateOfJoin, String previousOrganisationName)
-			throws EmployeeManagementException {
-		String employeeCode = generateEmployeeCode();
-		/*
-		 * if (null == employeeCode) { throw new
-		 * EmployeeManagementException(Constants.INPUT_NULL_ERROR); }
-		 */
-		Employee employee = new Employee(employeeCode, name, address, bloodGroup, dateOfBirth, isExperienced,
-				dateOfJoin, previousOrganisationName);
+	public Employee createEmployee(Employee employee)
+			throws EmployeeManagementException {;
+		employee.setEmployeeCode(generateEmployeeCode());
 		return employeeDao.insertEmployee(employee);
 	}
 

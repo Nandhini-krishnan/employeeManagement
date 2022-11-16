@@ -23,7 +23,7 @@ public interface EmployeeDao {
      * To insert the employee in the database.
      * </p>
      *
-     * @param employee - the employee to be added in the map
+     * @param employee - the employee to be inserted
      * @return         - the employee
      * @throws EmployeeManagementException - if any hibernate exception is occur
      */
