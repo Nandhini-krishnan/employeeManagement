@@ -20,14 +20,10 @@ public interface TechStackService {
      * To Create the project.
      * </p>
      *
-     * @param  name - the project name to be added
-     * @param  startDate - the start date of the project to be added
-     * @param  endDate - the end date of the project to be added
+     * @param  techStack - the project to be created
      * @return - the created project
      */
-    public TechStack createTechStack(
-	    String name,
-	    float version) throws EmployeeManagementException;
+    public TechStack createTechStack(TechStack techStack) throws EmployeeManagementException;
 
     /**
      * <p>

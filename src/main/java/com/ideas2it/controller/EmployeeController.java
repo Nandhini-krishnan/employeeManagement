@@ -4,8 +4,11 @@ package com.ideas2it.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,17 +45,28 @@ public class EmployeeController {
 		return "createEmployee";
 	}
 
-	@PostMapping("/insertEmployee")
-	public String insertEmployee(@RequestParam String dateOfBirth, @RequestParam String dateOfJoin,
-			@ModelAttribute("employee") Employee employee, Model model) {
+	@PostMapping({"/insert","/employee/insert"})
+	public String insertEmployee(@RequestParam String dateBirth, @RequestParam String dateJoin,
+			@ModelAttribute("employee") Employee employee, Model model, HttpServletRequest request) {
 		try {
-			employee.setDateOfBirth(DateUtil.getParsedDate(dateOfBirth));
-			employee.setDateOfJoin(DateUtil.getParsedDate(dateOfJoin));
-			model.addAttribute("employee", employeeService.createEmployee(employee));
+			String message;
+			employee.setDateOfBirth(DateUtil.getParsedDate(dateBirth));
+			employee.setDateOfJoin(DateUtil.getParsedDate(dateJoin));
+			System.out.println(request.getAttribute("projects"));
+			System.out.println(employee);
+			if (0 != employee.getId()) {
+				System.out.println(employee);
+				message = employeeService.updateEmployee(employee) ? "Update Successfully" :  "Update UnSuccessfull";
+				
+			} else {
+				model.addAttribute("employee", employeeService.createEmployee(employee));
+				message = "Insert Successfully";
+			}
+			model.addAttribute("message", message);
 		} catch (EmployeeManagementException e) {
 			EmployeeManagementLogger.displayErrorLogs(e.getMessage());
 		}
-		return "createEmployee";
+		return "redirect:/createEmployee";
 	}
 
 	/**
@@ -79,20 +93,25 @@ public class EmployeeController {
 		return "displayEmployees";
 	}
 
-	@GetMapping("/getEmployeeById")
-	private String getEmployee(@RequestParam("id") int id, Model model) {
-
+	@PostMapping({ "/getEmployeeById", "/edit" })
+	private String getEmployee(@RequestParam("id") int id, Model model, HttpServletRequest request) {
+		String view = null;
 		try {
 			Employee employee = employeeService.getEmployeeById(id);
 			model.addAttribute("employee", employee);
+			request.setAttribute("projects", employee.getProjects());
+			if (request.getServletPath().equals("/employee/edit")) {
+				view = "createEmployee";
+			} else {
+				view = "getEmployee";
+			}
 		} catch (EmployeeManagementException employeeManagementException) {
 			EmployeeManagementLogger.displayErrorLogs(employeeManagementException.getMessage());
 		}
-
-		return "getEmployee";
+		return view;
 	}
 
-	@RequestMapping(value = "/deleteEmployeeById", method = RequestMethod.POST)
+	@PostMapping("/remove")
 	private String deleteEmployeeById(@RequestParam int id, Model model) {
 		try {
 			if (employeeService.isIdExist(id)) {
@@ -101,9 +120,9 @@ public class EmployeeController {
 				} else {
 					model.addAttribute("message", "Deletion Unsuccessfull");
 				}
-		    } else {
-		    	model.addAttribute("message", "Employee Not Found");
-		    } 
+			} else {
+				model.addAttribute("message", "Employee Not Found");
+			}
 		} catch (EmployeeManagementException employeeManagementException) {
 			EmployeeManagementLogger.displayErrorLogs(employeeManagementException.getMessage());
 		}

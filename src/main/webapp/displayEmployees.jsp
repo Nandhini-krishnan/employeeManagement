@@ -59,7 +59,7 @@
 
 	<tr>
 		<td>Experience Status :</td>
-		<td><%=employee.hasExperience()%></td>
+		<td><%=employee.isExperience()%></td>
 	</tr>
 
 	<tr>

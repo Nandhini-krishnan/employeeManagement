@@ -1,4 +1,3 @@
-<%@page import="com.ideas2it.model.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="employee/edit">
+	<form method="post" action="project/edit">
 			<table>
 			<tr>
-				<td><label for ="id">Enter the id you want to update</label></td>
+				<td><label for ="id">Enter the project id you want to update</label></td>
 				<td><input type="number" name="id" id ="id"></td>
 			</tr>
 			<tr>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,63 +10,74 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form method="post" action="employee/insertEmployee" modelAttribute = "employee">
+	<form:form method="post" action="employee/insert"
+		modelAttribute="employee">
 		<table>
+		    <tr>
+		    <td><form:input type="hidden" path = "id" /></td>
+		    </tr>
+		    <tr>
+		    <td><form:input type="hidden" path = "employeeCode" /></td>
+		    </tr>
 			<tr>
 				<td><form:label path="name">Name</form:label></td>
-				<td><form:input type="text" path="name" placeholder ="Enter the name" 
-				     title ="Enter the name(only alphanumeric, space are allowed)"></form:input></td>
+				<td><form:input type="text" path="name"
+						placeholder="Enter the name"
+						title="Enter the name(only alphanumeric, space are allowed)"></form:input></td>
 			</tr>
 			<tr>
 				<td><form:label path="address">Address</form:label></td>
-				<td><form:input type="text" path ="address" placeholder ="Enter the Address" ></form:input></td>
+				<td><form:input type="text" path="address"
+						placeholder="Enter the Address"></form:input></td>
 			</tr>
 			<tr>
 				<td><form:label path="bloodGroup">Blood Group</form:label></td>
 				<td><form:select path="bloodGroup">
-						<option value="A_POSITIVE">A_POSITIVE</option>
-						<option value="A_NEGATIVE">A_NEGATIVE</option>
-						<option value="B_POSITIVE">B_POSITIVE</option>
-						<option value="B_NEGATIVE">B_NEGATIVE</option>
-						<option value="O_POSITIVE">O_POSITIVE</option>
-						<option value="O_NEGATIVE">O_NEGATIVE</option>
-						<option value="AB_POSITIVE">AB_POSITIVE</option>
-						<option value="AB_NEGATIVE">AB_NEGATIVE</option>
-						<option value="A1_POSITIVE">A1_POSITIVE</option>
-						<option value="A1_NEGATIVE">A1_NEGATIVE</option>
-						<option value="A1B_POSITIVE">A1B_POSITIVE</option>
-						<option value="A1B_NEGATIVE">A1B_NEGATIVE</option>
-						<option value="A2B_POSITIVE">A2B_POSITIVE</option>
-						<option value="A2B_NEGATIVE">A2B_NEGATIVE</option>
-						<option value="OTHERS">OTHERS</option>
-				</form:select></td>
+						<form:option value="A_POSITIVE" label="A_POSITIVE" />
+						<form:option value="A_NEGATIVE" label="A_NEGATIVE" />
+						<form:option value="B_POSITIVE" label="B_POSITIVE" />
+						<form:option value="B_NEGATIVE" label="B_NEGATIVE" />
+						<form:option value="O_POSITIVE" label="O_POSITIVE" />
+						<form:option value="O_NEGATIVE" label="O_NEGATIVE" />
+						<form:option value="AB_POSITIVE" label="AB_POSITIVE" />
+						<form:option value="AB_NEGATIVE" label="AB_NEGATIVE" />
+						<form:option value="A1_POSITIVE" label="A1_POSITIVE" />
+						<form:option value="A1_NEGATIVE" label="A1_NEGATIVE" />
+						<form:option value="A1B_POSITIVE" label="A1B_POSITIVE" />
+						<form:option value="A1B_NEGATIVE" label="A1B_NEGATIVE" />
+						<form:option value="A2B_POSITIVE" label="A2B_POSITIVE" />
+						<form:option value="A2B_NEGATIVE" label="A2B_NEGATIVE" />
+						<form:option value="OTHERS" label="OTHERS" />
+					</form:select></td>
 			</tr>
 			<tr>
-				<td><label for="dateOfBirth">Date of Birth</label></td>
-				<td><input type="date" name="dateOfBirth" id="dateOfBirth"></input></td>
+				<td><label for="dateBirth">Date of Birth</label></td>
+				<td><input name="dateBirth" id="dateBirth" type="date" value = "${employee.getDateOfBirth()}" /></td>
 			</tr>
 			<tr>
-				<td><label for="dateOfJoin">Date of Join</label></td>
-				<td><input type="date" name="dateOfJoin" id="dateOfJoin"></input></td>
+				<td><label for="dateJoin">Date of Join</label></td>
+				<td><input type="date" name="dateJoin" id="dateJoin" value = "${employee.getDateOfJoin()}" /></td>
 			</tr>
 			<tr>
-				<td><form:label path="hasExperience">Do you have any experience?</form:label></td>
-				<td><form:input type="radio" path="experience" value="true">yes</form:input></td>
-				<td><form:input type="radio" path="experience" value="false">no</form:input></td>
-			</tr>
+               <td><form:label path = "experience">Do you have any experience?</form:label></td>
+               <td>
+                  <form:radiobutton path = "experience" value = "true" label = "Yes" />
+                  <form:radiobutton path = "experience" value = "false" label = "No" />
+               </td>
+            </tr>
 			<tr>
 				<td><form:label path="previousOrganisationName">Previous Organisation Name
 				                                                (Please leave as empty if you don't have any experience)</form:label></td>
-				<td><form:input type="text" path="previousOrganisationName" ></form:input></td>
+				<td><form:input type="text" path="previousOrganisationName"></form:input></td>
 			</tr>
 			<tr>
-				<td><form:input type="submit" value="Insert"></form:input></td>
+				<td><input type="submit" value="Insert"></input></td>
 			</tr>
 		</table>
 	</form:form>
-	
-	<% if(null != request.getAttribute("Employee")) { %>
-    <h1>Insert successfully</h1>
-<% } %>
+   <%= request.getAttribute("employee") %>
+	<c:if test="${not empty employee.getName()}">
+		<h2>"${employee.getName()}  ${message}"</h2>
+	</c:if>
 </body>
 </html>

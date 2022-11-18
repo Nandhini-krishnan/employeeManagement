@@ -23,29 +23,15 @@ public class TechStackServiceImpl implements TechStackService {
 	private TechStackDao techStackDao = new TechStackDaoImpl();
 
 	/**
-	 * <p>
-	 * To Create the employee.
-	 * </p>
-	 *
-	 * @param projectName - the employee name to be added
-	 * @param technology  - the employee address to be added
-	 * @param startDate   - the employee date of birth to be added
-	 * @param endDate     - the employee experience to be added
-	 * @return the created project
+	 * {@inheritdoc}
 	 */
 	@Override
-	public TechStack createTechStack(String name, float version) throws EmployeeManagementException {
-		TechStack techStack = new TechStack(name, version);
+	public TechStack createTechStack(TechStack techStack) throws EmployeeManagementException {
 		return techStackDao.insertTechStack(techStack);
 	}
 
 	/**
-	 * <p>
-	 * Generate the employee id as per the size of an employee map and return the
-	 * employee id
-	 * </p>
-	 *
-	 * @return an employee id with prefix as EMP
+	 * {@inheritdoc}
 	 */
 	/*
 	 * public String generateProjectId() throws EmployeeManagementException { int
@@ -53,11 +39,7 @@ public class TechStackServiceImpl implements TechStackService {
 	 */
 
 	/**
-	 * <p>
-	 * To fetch all the projects in the project table.
-	 * </p>
-	 *
-	 * @return - the list of projects
+	 * {@inheritdoc}
 	 */
 	@Override
 	public List<TechStack> getTechStacks() throws EmployeeManagementException {
@@ -65,12 +47,7 @@ public class TechStackServiceImpl implements TechStackService {
 	}
 
 	/**
-	 * <p>
-	 * To fetch the project for the given project id
-	 * </p>
-	 *
-	 * @param projectId - a project id for which the project to be returned
-	 * @return - the project
+	 * {@inheritdoc}
 	 */
 	@Override
 	public TechStack getTechStackById(int techStackId) throws EmployeeManagementException {
@@ -82,12 +59,7 @@ public class TechStackServiceImpl implements TechStackService {
 	}
 
 	/**
-	 * <p>
-	 * To fetch the projects for the given employee id.
-	 * </p>
-	 *
-	 * @param employeeId - an employee id for which the projects to be returned
-	 * @return - the list of projects
+	 * {@inheritdoc}
 	 */
 	@Override
 	public List<TechStack> getTechStacksByProjectId(int projectId) throws EmployeeManagementException {
@@ -99,13 +71,7 @@ public class TechStackServiceImpl implements TechStackService {
 	}
 
 	/**
-	 * <p>
-	 * To remove the project for the given project id.
-	 * </p>
-	 *
-	 * @param projectId - a project id to be removed
-	 * @return - true if the project is removed - false otherwise
-	 * @throws EmployeeManagementException - if any sql exception is thrown
+	 * {@inheritdoc}
 	 */
 	@Override
 	public boolean removeTechStackById(int techStackId) throws EmployeeManagementException {

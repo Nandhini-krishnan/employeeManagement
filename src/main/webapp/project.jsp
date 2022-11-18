@@ -17,7 +17,7 @@
 	</a>
 	<br>
 	
-	<a href="getProjects.jsp"> <input type="button"
+	<a href="project/getProjects"> <input type="button"
 		value="Display All Projects">
 	</a>
 	<br>

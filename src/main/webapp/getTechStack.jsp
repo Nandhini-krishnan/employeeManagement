@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="getTechStackById" method="post">
+	<form action="techStack/getTechStackById" method="get">
 		<table>
 			<tr>
 				<td><label for ="id">Enter the id</label></td>

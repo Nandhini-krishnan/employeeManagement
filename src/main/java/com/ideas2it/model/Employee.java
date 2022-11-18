@@ -50,7 +50,7 @@ public class Employee extends BaseModel {
 	private Date dateOfBirth;
 
 	@Column(name = "is_experienced", nullable = false)
-	private boolean isExperienced;
+	private boolean experience;
 
 	@Column(name = "date_of_join", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -67,13 +67,13 @@ public class Employee extends BaseModel {
 	}
 
 	public Employee(String employeeCode, String name, String address, BloodGroup bloodGroup, Date dateOfBirth,
-			boolean isExperienced, Date dateOfJoin, String previousOrganisationName) {
+			boolean experience, Date dateOfJoin, String previousOrganisationName) {
 		this.employeeCode = employeeCode;
 		this.name = name;
 		this.address = address;
 		this.bloodGroup = bloodGroup;
 		this.dateOfBirth = dateOfBirth;
-		this.isExperienced = isExperienced;
+		this.experience = experience;
 		this.dateOfJoin = dateOfJoin;
 		this.previousOrganisationName = previousOrganisationName;
 	}
@@ -126,12 +126,12 @@ public class Employee extends BaseModel {
 		return dateOfJoin;
 	}
 
-	public void setExperience(boolean isExperienced) {
-		this.isExperienced = isExperienced;
+	public void setExperience(boolean experience) {
+		this.experience = experience;
 	}
 
-	public boolean hasExperience() {
-		return isExperienced;
+	public boolean isExperience() {
+		return experience;
 	}
 
 	public void setPreviousOrganisationName(String previousOrganisationName) {
@@ -193,7 +193,7 @@ public class Employee extends BaseModel {
 		employee.append("\nDate Of Join: ");
 		employee.append(dateOfJoin);
 		employee.append("\nExperience Status: ");
-		employee.append(isExperienced);
+		employee.append(experience);
 		employee.append("\nPrevious Organisation Name");
 		employee.append(previousOrganisationName);
 		employee.append("\nEmployee Age: ");

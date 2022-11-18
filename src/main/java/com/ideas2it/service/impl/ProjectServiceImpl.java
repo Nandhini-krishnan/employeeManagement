@@ -25,29 +25,15 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectDao projectDao = new ProjectDaoImpl();
 
 	/**
-	 * <p>
-	 * To Create the employee.
-	 * </p>
-	 *
-	 * @param projectName - the employee name to be added
-	 * @param technology  - the employee address to be added
-	 * @param startDate   - the employee date of birth to be added
-	 * @param endDate     - the employee experience to be added
-	 * @return the created project
+	 * {@inheritdoc}
 	 */
 	@Override
-	public Project createProject(String name, Date startDate, Date endDate) throws EmployeeManagementException {
-		Project project = new Project(name, startDate, endDate);
+	public Project createProject(Project project) throws EmployeeManagementException {
 		return projectDao.insertProject(project);
 	}
 
 	/**
-	 * <p>
-	 * Generate the employee id as per the size of an employee map and return the
-	 * employee id
-	 * </p>
-	 *
-	 * @return an employee id with prefix as EMP
+	 * {@inheritdoc}
 	 */
 	// public String generateProjectId() throws EmployeeManagementException {
 	// int projectId = projectDao.getProjectCount();
@@ -67,11 +53,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	/**
-	 * <p>
-	 * To fetch all the projects in the project table.
-	 * </p>
-	 *
-	 * @return - the list of projects
+	 * {@inheritdoc}
 	 */
 	@Override
 	public List<Project> getProjects() throws EmployeeManagementException {
@@ -83,12 +65,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	/**
-	 * <p>
-	 * To fetch the project for the given project id
-	 * </p>
-	 *
-	 * @param projectId - a project id for which the project to be returned
-	 * @return - the list of projects
+	 * {@inheritdoc}
 	 */
 	@Override
 	public Project getProjectById(int projectId) throws EmployeeManagementException {
@@ -100,12 +77,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	/**
-	 * <p>
-	 * To fetch the projects for the given employee id.
-	 * </p>
-	 *
-	 * @param employeeId - an employee id for which the projects to be returned
-	 * @return - the list of projects
+	 * {@inheritdoc}
 	 */
 	@Override
 	public List<Project> getProjectsByEmployeeId(int employeeId) throws EmployeeManagementException {
@@ -117,13 +89,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	/**
-	 * <p>
-	 * To remove the project for the given project id.
-	 * </p>
-	 *
-	 * @param projectId - a project id to be removed
-	 * @return - true if the project is removed - false otherwise
-	 * @throws EmployeeManagementException - if any sql exception is thrown
+	 * {@inheritdoc}
 	 */
 	@Override
 	public boolean deleteProjectById(int projectId) throws EmployeeManagementException {

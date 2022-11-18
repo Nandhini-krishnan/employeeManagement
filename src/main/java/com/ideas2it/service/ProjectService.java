@@ -22,15 +22,10 @@ public interface ProjectService {
      * To Create the project.
      * </p>
      *
-     * @param  name - the project name to be added
-     * @param  startDate - the start date of the project to be added
-     * @param  endDate - the end date of the project to be added
+     * @param  project - the project to be created
      * @return - the created project
      */
-    public Project createProject(
-	    String name,
-	    Date startDate,
-	    Date endDate) throws EmployeeManagementException;
+    public Project createProject(Project project) throws EmployeeManagementException;
 
     /**
      * <p>

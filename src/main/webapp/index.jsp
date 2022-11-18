@@ -17,13 +17,13 @@ body {
 	<h3>EMPLOYEE MANAGEMENT</h3>
 
 	<a href="employee.jsp"> <input type="button" value="Employee">
-	</a>
+	</a><br><br>
 
 	<a href="project.jsp"> <input type="button" value="Project">
-	</a>
+	</a><br><br>
 
 	<a href="techStack.jsp"> <input type="button" value="TechStack">
-	</a>
+	</a><br><br>
 	
 </body>
 </html>

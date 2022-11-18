@@ -15,7 +15,7 @@
 <body>
 
     ${employee}
-	<form action="employee/getEmployeeById" method="get">
+	<form action="employee/getEmployeeById" method="post">
 		<table>
 			<tr>
 				<td><label for ="id">Enter the id</label></td>
@@ -29,8 +29,8 @@
 			
 			
 			
-		<%-- 	<%
-			Employee employee = (Employee) session.getAttribute("employee");
+		 	<%
+			Employee employee = (Employee) request.getAttribute("employee");
 			if (null != employee) {
 			%>
 			
@@ -71,7 +71,7 @@
 
 			<tr>
 				<td>Experience Status :</td>
-				<td><%=employee.hasExperience()%></td>
+				<td><%=employee.isExperience()%></td>
 			</tr>
 
 			<tr>
@@ -118,6 +118,6 @@
 			}
 			}
 			%> 
-		</table> --%>
+		</table> 
 </body>
 </html>

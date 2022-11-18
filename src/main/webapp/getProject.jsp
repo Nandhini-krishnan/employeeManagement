@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="getProjectById" method="post">
+	<form action="project/getProjectById" method="get">
 		<table>
 			<tr>
 				<td><label for ="id">Enter the id</label></td>
@@ -23,7 +23,7 @@
 			</tr>
 
 			<%
-			Project project = (Project) session.getAttribute("Project");
+			Project project = (Project) request.getAttribute("project");
 			if (null != project) {
 			%>
 

@@ -12,7 +12,7 @@
 	</a>
 	<br>
 	
-	<a href="getTechStacks.jsp"> <input type="button"
+	<a href="techStack/getTechStacks"> <input type="button"
 		value="Display All TechStacks">
 	</a>
 	<br>

@@ -18,7 +18,7 @@
 	</a>
 	<br>
 	<br>
-	<a href="getEmployees.jsp"> <input type="button"
+	<a href="employee/getEmployees"> <input type="button"
 		value="Display All Employees">
 	</a>
 	<br>

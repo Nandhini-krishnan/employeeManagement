@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="removeProjectById" method="post">
+	<form action="project/remove" method="post">
 		<table>
 			<tr>
 				<td><label for ="id">Enter the id you want to delete</label></td>
@@ -17,19 +17,7 @@
 			<tr>
 				<td><input type="submit" value="Remove"></td>
 			</tr>
-
-			<%
-			if (null != session.getAttribute("isDeleted")) {
-				boolean isDeleted = (boolean) session.getAttribute("isDeleted");
-				if (isDeleted) {
-			%>
-			
-			<%= request.getParameter("id") + "Deleted Successfully" %>
-			
-			<%
-			}
-			}
-			%>
+			 <h3> ${message} </h3>
 		</table>
 	</form>
 </body>
