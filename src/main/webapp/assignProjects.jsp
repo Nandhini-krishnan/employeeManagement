@@ -2,6 +2,8 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +24,8 @@
 	</form>
 
 	<form action="getExistingProjects" method="post">
-		<%
-	if (null != session.getAttribute("isPresent")) { %>
+	  <%= request.getAttribute("isPresent") %>
+		<% if (null != request.getAttribute("isPresent")) { %>
 		<table>
 			<tr>
 				<td><input type="submit"
@@ -35,8 +37,8 @@
 
 	<form action="getProjectsForAssign" method="post">
 		<% 
-		if (null != session.getAttribute("Projects")) { 
-		List<Project> projects = (List<Project>) session.getAttribute("Projects");
+		if (null != request.getAttribute("Projects")) { 
+		List<Project> projects = (List<Project>) request.getAttribute("Projects");
 		%>
 
 		<p>choose the projects you want to assign</p>
@@ -61,8 +63,8 @@
 		</table>
 		<% } %>
 	</form>
+	<c:if test="${not empty employee.getName()}">
+		<h2>${employee.getName()} Assign Successfully</h2>
+	</c:if>
 </body>
-<% if(null != session.getAttribute("Employee")) { %>
-    <h1>Assign successfully</h1>
-<% } %>
 </html>

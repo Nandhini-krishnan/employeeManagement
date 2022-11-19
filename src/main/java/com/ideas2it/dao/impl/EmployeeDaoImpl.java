@@ -175,6 +175,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			session = factory.openSession();
 			Query<Employee> query = session.createQuery(
 					"select distinct e from Employee e join fetch e.projects p where e.isDeleted = false and e.dateOfJoin < concat(year(current_date()) - :yearsOfExperience, '-',month(current_date()),'-',day(current_date()))");
+			System.out.println(query.setParameter("yearsOfExperience", yearsOfExperience).getResultList());
 			return query.setParameter("yearsOfExperience", yearsOfExperience).getResultList();
 		} catch (HibernateException hibernateException) {
 			session.getTransaction().rollback();

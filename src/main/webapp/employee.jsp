@@ -18,7 +18,7 @@
 	</a>
 	<br>
 	<br>
-	<a href="employee/getEmployees"> <input type="button"
+	<a href="getEmployees"> <input type="button"
 		value="Display All Employees">
 	</a>
 	<br>

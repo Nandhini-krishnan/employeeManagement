@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="project/getProjectById" method="get">
+	<form action="getProjectById" method="get">
 		<table>
 			<tr>
 				<td><label for ="id">Enter the id</label></td>

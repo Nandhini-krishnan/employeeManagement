@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="employee/remove" method="post">
+	<form action="removeEmployee" method="post">
 		<table>
 			<tr>
 				<td><label for ="id">Enter the id you want to delete</label></td>

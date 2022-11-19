@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="employee/edit">
+	<form method="post" action="editEmployee">
 			<table>
 			<tr>
 				<td><label for ="id">Enter the id you want to update</label></td>

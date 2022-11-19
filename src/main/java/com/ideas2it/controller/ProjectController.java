@@ -1,11 +1,13 @@
 package com.ideas2it.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,34 +32,33 @@ import com.ideas2it.util.logger.EmployeeManagementLogger;
 
 /**
  * <p>
- * Gets input for the projects and
- * then displays the results of project's operations.
+ * Gets input for the projects and then displays the results of project's
+ * operations.
  * </p>
  *
- * @author Naganandhini
- * version 1.0  19-SEP-2022
+ * @author Naganandhini version 1.0 19-SEP-2022
  */
 @Controller
-@RequestMapping("/project")
 public class ProjectController {
 	private ProjectService projectService = new ProjectServiceImpl();
 
-	@RequestMapping
+	@RequestMapping("/project")
 	public String createProject(Model model) {
 		model.addAttribute("project", new Project());
 		return "createProject";
 	}
 
-	@PostMapping({"/insert","/project/insert"})
+	@PostMapping({ "/insertProject" })
 	public String insertProject(@RequestParam String startDate, @RequestParam String endDate,
 			@ModelAttribute("project") Project project, Model model, HttpServletRequest request) {
 		try {
 			String message;
 			project.setStartDate(DateUtil.getParsedDate(startDate));
-			project.setEndDate(DateUtil.getParsedDate(endDate));			
+			project.setEndDate(DateUtil.getParsedDate(endDate));
+			project.setTechStacks((List<TechStack>)request.getSession().getAttribute("techStacks"));
 			if (0 != project.getId()) {
-				message = projectService.updateProject(project) ? "Update Successfully" :  "Update UnSuccessfull";
-				
+				message = projectService.updateProject(project) ? "Update Successfully" : "Update UnSuccessfull";
+
 			} else {
 				model.addAttribute("project", projectService.createProject(project));
 				message = "Insert Successfully";
@@ -66,36 +67,40 @@ public class ProjectController {
 		} catch (EmployeeManagementException e) {
 			EmployeeManagementLogger.displayErrorLogs(e.getMessage());
 		}
-		return "redirect:/createProject";
+		return "createProject";
 	}
 
-	
-	@GetMapping("/getProjects")
-	private String showProjects(Model model) {
-
+	@PostMapping({"getProjects", "/getExistingProjects"} )
+	private String getProjects(Model model, HttpServletRequest request) {
+		String view = null;
 		try {
-			List<Project> projects = projectService.getProjects();
-			model.addAttribute("projects", projects);
+			List<Project> projects = projectService.getProjects();	
 			if (!projects.isEmpty()) {
-				model.addAttribute("message", projects);
+				model.addAttribute("Projects", projects);
+				if (request.getServletPath().equals("/getExistingProjects")) {
+					view = "assignProjects";
+				} else {
+					view = "displayProjects";
+				}
 			} else {
 				model.addAttribute("message", "No Record Found");
+				view = "error";
 			}
 		} catch (EmployeeManagementException employeeManagementException) {
 			EmployeeManagementLogger.displayErrorLogs(employeeManagementException.getMessage());
 		}
 
-		return "displayProjects";
+		return view;
 	}
 
-	@PostMapping({ "/getProjectById", "/edit" })
+	@PostMapping({"/getProjectById", "/editProject"})
 	private String getProject(@RequestParam("id") int id, Model model, HttpServletRequest request) {
 		String view = null;
 		try {
 			Project project = projectService.getProjectById(id);
 			model.addAttribute("project", project);
-			//request.setAttribute("projects", project.getProjects());
-			if (request.getServletPath().equals("/project/edit")) {
+            request.getSession().setAttribute("projects", project.getTechStacks());
+			if (request.getServletPath().equals("/editProject")) {
 				view = "createProject";
 			} else {
 				view = "getProject";
@@ -106,7 +111,7 @@ public class ProjectController {
 		return view;
 	}
 
-	@PostMapping("/remove")
+	@PostMapping("/removeProject")
 	private String deleteProjectById(@RequestParam int id, Model model) {
 		try {
 			if (projectService.isIdExist(id)) {
@@ -122,6 +127,54 @@ public class ProjectController {
 			EmployeeManagementLogger.displayErrorLogs(employeeManagementException.getMessage());
 		}
 		return "removeProject";
+	}
+	
+	/**
+	 * <p>
+	 * To assign the Tech Stacks for project.
+	 * </p>
+	 */
+	@PostMapping("/assignTechStacks")
+	private String assignTechStacks(@RequestParam int id, Model model, HttpServletRequest request) {
+		String view = null;
+		try {
+			boolean isPresent = projectService.isIdExist(id);
+			request.getSession().setAttribute("employeeId", id);
+			if (isPresent) {
+				model.addAttribute("isPresent", isPresent);
+				view = "assignTechStacks";
+			} else {
+				model.addAttribute("message", "Project not found");
+				view = "error";
+			}
+		} catch (EmployeeManagementException employeeManagementException) {
+			EmployeeManagementLogger.displayErrorLogs(employeeManagementException.getMessage());
+		}
+		return view;
+	}
+
+	/**
+     * <p>
+     * To get the Tech Stacks which will be assigned for project
+     * </p>
+     *
+     * @return - the jsp page to show the message
+     */
+	@PostMapping("/getTechStacksForAssign")
+	private String getProjectsForAssign(Model model, HttpServletRequest request) throws IOException {
+		try {
+			TechStackService techStackService = new TechStackServiceImpl();
+		    int employeeId = (int) request.getSession().getAttribute("employeeId");
+		    List<TechStack> techStacks = new ArrayList<>();
+			String[] techStacksToAssign = request.getParameterValues("techStack");
+			for (int index = 0; index < techStacksToAssign.length; index++) {
+				techStacks.add(techStackService.getTechStackById(Integer.parseInt(techStacksToAssign[index])));
+			}
+			request.setAttribute("Project", projectService.assignTechStacks(employeeId, techStacks));
+	    } catch (EmployeeManagementException employeeManagementException) {
+		    EmployeeManagementLogger.displayErrorLogs(employeeManagementException.getMessage());
+	    }
+		return "assignTechStacks";
 	}
 
 }

@@ -23,7 +23,7 @@
 
 	<form action="getExistingTechStacks" method="post">
 		<%
-	if (null != session.getAttribute("isPresent")) { %>
+	if (null != request.getAttribute("isPresent")) { %>
 		<table>
 			<tr>
 				<td><input type="submit"
@@ -35,8 +35,8 @@
 
 	<form action="getTechStacksForAssign" method="post">
 		<% 
-		if (null != session.getAttribute("TechStacks")) { 
-		List<TechStack> techStacks = (List<TechStack>) session.getAttribute("TechStacks");
+		if (null != request.getAttribute("TechStacks")) { 
+		List<TechStack> techStacks = (List<TechStack>) request.getAttribute("TechStacks");
 		%>
 
 		<p>choose the projects you want to assign</p>

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="getEmployeesByExperience">
+	<form method="get" action="getEmployeesByExperience">
 		<table>
 			<tr>
 				<td><label for="yearsOfExperience">Enter the years of experience </label></td>

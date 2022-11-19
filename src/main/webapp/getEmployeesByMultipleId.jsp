@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="getEmployeesByMultipleId.jsp" method="post">
+	<form action="getEmployeesByMultipleId.jsp" method="get">
 		<table>
 			<tr>
 				<td><label for="numberOfId"><%=Constants.ENTER_NUMBER_OF_ID%></label></td>
@@ -20,7 +20,7 @@
 			</tr>	
 	</form>
 
-	<form action="getEmployeesByMultipleId" method="post">
+	<form action="getEmployeesByMultipleId" method="get">
 		<%
 		if (null != request.getParameter("numberOfId")) {
 		int size = Integer.parseInt(request.getParameter("numberOfId"));
@@ -32,7 +32,7 @@
 				<td><input type="number" name="<%=i + 1%>" id="<%=i + 1%>" placeholder= <%=i + 1%>></td>
 			</tr>
 			<%
-			} 
+			}  session.setAttribute("size", size);
 			%>
 			<tr>
 				<td><input type="submit" value="Submit"></td>

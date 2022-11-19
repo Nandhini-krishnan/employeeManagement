@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="insertProject.jsp"> <input type="button"
+	<a href="project"> <input type="button"
 		value="Insert Project">
 	</a>
 	<br>
@@ -17,7 +17,7 @@
 	</a>
 	<br>
 	
-	<a href="project/getProjects"> <input type="button"
+	<a href="getProjects"> <input type="button"
 		value="Display All Projects">
 	</a>
 	<br>

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="getEmployeesInRange">
+	<form method="get" action="getEmployeesInRange">
 		<table>
 			<tr>
 				<td><label for="startDate">Start Date</label></td>

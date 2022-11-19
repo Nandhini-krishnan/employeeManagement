@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- <%= session.getAttribute("error") %>
+ <h2> ${error} </h2>
 </body>
 </html>

@@ -14,8 +14,7 @@
 </head>
 <body>
 
-    ${employee}
-	<form action="employee/getEmployeeById" method="post">
+	<form action="getEmployeeById" method="post">
 		<table>
 			<tr>
 				<td><label for ="id">Enter the id</label></td>
@@ -25,9 +24,7 @@
 			<tr>
 				<td><input type="submit" value="Display"></td>
 			</tr>
-			</form>
-			
-			
+			</form>		
 			
 		 	<%
 			Employee employee = (Employee) request.getAttribute("employee");

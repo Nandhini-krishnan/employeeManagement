@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="searchEmployees">
+	<form method="get" action="search">
 		<table>
 			<tr>
 				<td><label for="search">search :</label></td>

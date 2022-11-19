@@ -10,15 +10,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form method="post" action="employee/insert"
+	<form:form method="post" action="insertEmployee"
 		modelAttribute="employee">
 		<table>
-		    <tr>
-		    <td><form:input type="hidden" path = "id" /></td>
-		    </tr>
-		    <tr>
-		    <td><form:input type="hidden" path = "employeeCode" /></td>
-		    </tr>
+			<tr>
+				<td><form:hidden path="id" /></td>
+			</tr>
+			<tr>
+				<td><form:hidden path="employeeCode" /></td>
+			</tr>
+			
+<%-- 			<c:forEach var="project" items="${projects}" varStatus="row"> --%>
+<!-- 				<tr> -->
+<!-- 					<input id="projects" name="projects" type="hidden" -->
+<%-- 						value="${project}" /> --%>
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
+
 			<tr>
 				<td><form:label path="name">Name</form:label></td>
 				<td><form:input type="text" path="name"
@@ -52,19 +60,20 @@
 			</tr>
 			<tr>
 				<td><label for="dateBirth">Date of Birth</label></td>
-				<td><input name="dateBirth" id="dateBirth" type="date" value = "${employee.getDateOfBirth()}" /></td>
+				<td><input name="dateBirth" id="dateBirth" type="date"
+					value="${employee.getDateOfBirth()}" /></td>
 			</tr>
 			<tr>
 				<td><label for="dateJoin">Date of Join</label></td>
-				<td><input type="date" name="dateJoin" id="dateJoin" value = "${employee.getDateOfJoin()}" /></td>
+				<td><input type="date" name="dateJoin" id="dateJoin"
+					value="${employee.getDateOfJoin()}" /></td>
 			</tr>
 			<tr>
-               <td><form:label path = "experience">Do you have any experience?</form:label></td>
-               <td>
-                  <form:radiobutton path = "experience" value = "true" label = "Yes" />
-                  <form:radiobutton path = "experience" value = "false" label = "No" />
-               </td>
-            </tr>
+				<td><form:label path="experience">Do you have any experience?</form:label></td>
+				<td><form:radiobutton path="experience" value="true"
+						label="Yes" /> <form:radiobutton path="experience" value="false"
+						label="No" /></td>
+			</tr>
 			<tr>
 				<td><form:label path="previousOrganisationName">Previous Organisation Name
 				                                                (Please leave as empty if you don't have any experience)</form:label></td>
@@ -75,9 +84,8 @@
 			</tr>
 		</table>
 	</form:form>
-   <%= request.getAttribute("employee") %>
 	<c:if test="${not empty employee.getName()}">
-		<h2>"${employee.getName()}  ${message}"</h2>
+		<h2>${employee.getName()} ${message}</h2>
 	</c:if>
 </body>
 </html>

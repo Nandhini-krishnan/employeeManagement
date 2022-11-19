@@ -36,7 +36,7 @@ public class TechStackController {
 		return "createTechStack";
 	}
 
-	@PostMapping({"/insert","/techStack/insert"})
+	@PostMapping({"/insertTechStack"})
 	public String insertTechStack(@ModelAttribute("techStack") TechStack techStack, Model model, HttpServletRequest request) {
 		try {
 			String message;		
@@ -55,22 +55,26 @@ public class TechStackController {
 	}
 
 	
-	@GetMapping("/getTechStacks")
-	private String showTechStacks(Model model) {
-
+	@GetMapping({"/getTechStacks", "/getExistingTechStacks"} )
+	private String getTechStacks(Model model, HttpServletRequest request) {
+		String view = null;
 		try {
-			List<TechStack> techStacks = techStackService.getTechStacks();
-			model.addAttribute("techStacks", techStacks);
+			List<TechStack> techStacks = techStackService.getTechStacks();	
 			if (!techStacks.isEmpty()) {
-				model.addAttribute("message", techStacks);
+				model.addAttribute("TechStacks", techStacks);
+				if (request.getServletPath().equals("/getExistingTechStacks")) {
+					view = "assignTechStacks";
+				} else {
+					view = "displayTechStacks";
+				}
 			} else {
 				model.addAttribute("message", "No Record Found");
+				view = "error";
 			}
 		} catch (EmployeeManagementException employeeManagementException) {
 			EmployeeManagementLogger.displayErrorLogs(employeeManagementException.getMessage());
 		}
-
-		return "displaytechStacks";
+		return view;
 	}
 
 	@PostMapping({ "/getTechStackById", "/edit" })

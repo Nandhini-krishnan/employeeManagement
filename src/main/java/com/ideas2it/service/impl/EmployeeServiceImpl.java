@@ -93,11 +93,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	@Override
 	public List<Employee> searchEmployees(String input) throws EmployeeManagementException {
-		List<Employee> employees = employeeDao.searchEmployees(input);
-		if (employees.isEmpty()) {
-			throw new EmployeeManagementException(Constants.NO_RECORD_FOUND);
-		}
-		return employees;
+		return employeeDao.searchEmployees(input);
 	}
 
 	/**
@@ -105,11 +101,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	@Override
 	public List<Employee> getEmployeesByExperience(int experience) throws EmployeeManagementException {
-		List<Employee> employees = employeeDao.retrieveEmployeesByExperience(experience);
-		if (employees.isEmpty()) {
-			throw new EmployeeManagementException(Constants.NO_RECORD_FOUND);
-		}
-		return employees;
+		return employeeDao.retrieveEmployeesByExperience(experience);
 	}
 
 	/**

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="project/edit">
+	<form method="post" action="editProject">
 			<table>
 			<tr>
 				<td><label for ="id">Enter the project id you want to update</label></td>
