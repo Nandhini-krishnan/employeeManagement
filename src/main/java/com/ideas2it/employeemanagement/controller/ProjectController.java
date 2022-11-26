@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ideas2it.employeemanagement.model.Project;
+import com.ideas2it.employeemanagement.model.ProjectDto;
 import com.ideas2it.employeemanagement.service.ProjectService;
 
 @RestController
@@ -24,18 +25,17 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@PostMapping("/insert")
-	public Project insertEmployee(@RequestBody Project project) {
-		System.out.println(project);
-		return projectService.insertProject(project);		
+	public ProjectDto insertEmployee(@RequestBody ProjectDto projectDto) {
+		return projectService.insertProject(projectDto);		
 	}
 	
 	@GetMapping("/get")
-	public List<Project> getProjects() {
+	public List<ProjectDto> getProjects() {
 		return projectService.getProjects();		
 	}
 	
-	@GetMapping("/getById")
-	public Project getProjectById(@RequestParam int id) {
+	@GetMapping("/getById/{id}")
+	public ProjectDto getProjectById(@PathVariable int id) {
 		return projectService.getProjectById(id);		
 	}
 	
@@ -44,9 +44,9 @@ public class ProjectController {
 		return projectService.deleteProjectById(id);
 	}
 	
-	@PutMapping("/update")
-	public String updateProject(@RequestBody Project project) {
-		return projectService.updateProject(project); 
+	@PutMapping("/update/{id}")
+	public String updateProject(@RequestBody ProjectDto projectDto, @PathVariable int id) {
+		return projectService.updateProject(projectDto, id); 
 	}
 	
 

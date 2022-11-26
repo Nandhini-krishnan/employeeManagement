@@ -30,7 +30,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @version  1.0  09-AUG-2022
  */
 
-@Component
 @Entity
 @Table(name = "projects")
 @SQLDelete(sql = "update projects set is_deleted = 1 where id =?")
@@ -47,8 +46,7 @@ public class Project extends BaseModel {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-    @ManyToMany(mappedBy = "projects", cascade = CascadeType.ALL)
-	@JsonIgnore
+    @ManyToMany(mappedBy = "projects")
     private List<Employee> employees;
 
     @ManyToMany(cascade = CascadeType.ALL)

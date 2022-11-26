@@ -1,14 +1,19 @@
 package com.ideas2it.employeemanagement.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ideas2it.employeemanagement.model.Project;
 import com.ideas2it.employeemanagement.model.TechStack;
+import com.ideas2it.employeemanagement.model.TechStackDto;
 import com.ideas2it.employeemanagement.repository.TechStackRepository;
 import com.ideas2it.employeemanagement.service.TechStackService;
+import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
+import com.ideas2it.employeemanagement.util.mapper.Mapper;
 
 @Service
 public class TechStackServiceImpl implements TechStackService {
@@ -16,16 +21,21 @@ public class TechStackServiceImpl implements TechStackService {
 	@Autowired
 	private TechStackRepository techStackRepository;
 
-	public TechStack insertTechStack(TechStack techStack) {
-		return techStackRepository.save(techStack);
+	public TechStackDto insertTechStack(TechStackDto techStackDto) {
+		return Mapper.convertIntoDto(techStackRepository.save(Mapper.convertIntoEntity(techStackDto)));
 	}
 
-	public List<TechStack> getTechStacks() {
-		return techStackRepository.findAll();
+	public List<TechStackDto> getTechStacks() throws EmployeeManagementException {
+		List<TechStackDto> techStacks = Mapper.convertIntoTechStacksDto(techStackRepository.findAll());
+		if(!techStacks.isEmpty()) {
+			return techStacks;
+		} else {
+			throw new EmployeeManagementException("No Records Found");
+		}
 	}
 
-	public TechStack getTechStackById(int id) {
-		return techStackRepository.findById(id).orElse(null);
+	public TechStackDto getTechStackById(int id) {
+		return Mapper.convertIntoDto(techStackRepository.findById(id).orElse(null));
 	}
 
 	public String deleteTechStackById(int id) {
@@ -33,19 +43,14 @@ public class TechStackServiceImpl implements TechStackService {
 		return "deleted successfully " + id;
 	}
 
-	public String updateTechStack(TechStack techStack) {
+	public String updateTechStack(TechStackDto techStackDto, int id) {
 		String message = null;
-		if (techStackRepository.existsById(techStack.getId())) {
-			TechStack existingTechStack = techStackRepository.findById(techStack.getId()).orElse(null);
-			existingTechStack.setName(techStack.getName());
-			existingTechStack.setVersion(techStack.getVersion());
-			if (null != techStack.getProjects()) {
-				List<Project> input = existingTechStack.getProjects();
-				input.addAll(techStack.getProjects());
-				existingTechStack.setProjects(input);
-			}
-			techStackRepository.save(existingTechStack);	
-		    message = techStack.getName() + " Update Successfully";
+		if (techStackRepository.existsById(id)) {
+			TechStackDto existingTechStack = Mapper.convertIntoDto(techStackRepository.findById(id).orElse(null));
+			existingTechStack.setName(techStackDto.getName());
+			existingTechStack.setVersion(techStackDto.getVersion());
+			techStackRepository.save(Mapper.convertIntoEntity(existingTechStack));	
+		    message = techStackDto.getName() + " Update Successfully";
 		} else {
 			message = "TechStack not found";
 		}

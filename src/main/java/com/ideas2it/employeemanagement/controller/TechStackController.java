@@ -1,8 +1,10 @@
 package com.ideas2it.employeemanagement.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ideas2it.employeemanagement.model.TechStack;
+import com.ideas2it.employeemanagement.model.TechStackDto;
 import com.ideas2it.employeemanagement.service.TechStackService;
+import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
 
 @RestController
 @RequestMapping("/techStack")
@@ -24,17 +28,17 @@ public class TechStackController {
 	private TechStackService techStackService;
 	
 	@PostMapping("/insert")
-	public TechStack insertTechStack(@RequestBody TechStack techStack) {
-		return techStackService.insertTechStack(techStack);		
+	public TechStackDto insertTechStack(@RequestBody TechStackDto techStackDto) {
+		return techStackService.insertTechStack(techStackDto);		
 	}
 	
 	@GetMapping("/get")
-	public List<TechStack> getTechStacks() {
-		return techStackService.getTechStacks();		
+	public ResponseEntity<List<TechStackDto>> getTechStacks() throws EmployeeManagementException {
+		return ResponseEntity.of(Optional.of(techStackService.getTechStacks()));		
 	}
 	
 	@GetMapping("/getById")
-	public TechStack getTechStackById(@RequestParam int id) {
+	public TechStackDto getTechStackById(@RequestParam int id) {
 		return techStackService.getTechStackById(id);		
 	}
 	
@@ -43,9 +47,9 @@ public class TechStackController {
 		return techStackService.deleteTechStackById(id);
 	}
 	
-	@PutMapping("/update")
-	public String updateProject(@RequestBody TechStack techStack) {
-		return techStackService.updateTechStack(techStack); 
+	@PutMapping("/update/{id}")
+	public String updateProject(@RequestBody TechStackDto techStackDto, @PathVariable int id) {
+		return techStackService.updateTechStack(techStackDto, id); 
 	}
 	
 }

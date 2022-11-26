@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import com.ideas2it.employeemanagement.model.Employee;
-import com.ideas2it.employeemanagement.model.Project;
-import com.ideas2it.employeemanagement.model.TechStack;
-import com.ideas2it.employeemanagement.repository.EmployeeRepository;
+import com.ideas2it.employeemanagement.model.ProjectDto;
+import com.ideas2it.employeemanagement.model.TechStackDto;
 import com.ideas2it.employeemanagement.repository.ProjectRepository;
 import com.ideas2it.employeemanagement.service.ProjectService;
+import com.ideas2it.employeemanagement.util.mapper.Mapper;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -18,16 +18,16 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 
-	public Project insertProject(Project project) {
-		return projectRepository.save(project);
+	public ProjectDto insertProject(ProjectDto projectDto) {
+		return Mapper.convertIntoDto(projectRepository.save(Mapper.convertIntoEntity(projectDto)));
 	}
 
-	public List<Project> getProjects() {
-		return projectRepository.findAll();
+	public List<ProjectDto> getProjects() {
+		return Mapper.convertIntoProjectsDto(projectRepository.findAll());
 	}
 
-	public Project getProjectById(int id) {
-		return projectRepository.findById(id).orElse(null);
+	public ProjectDto getProjectById(int id) {
+		return Mapper.convertIntoDto(projectRepository.findById(id).orElse(null));
 	}
 
 	public String deleteProjectById(int id) {
@@ -35,21 +35,20 @@ public class ProjectServiceImpl implements ProjectService {
 		return "deleted successfully " + id;
 	}
 
-	public String updateProject(Project project) {
+	public String updateProject(ProjectDto projectDto, int id) {
 		String message = null;
-		if (projectRepository.existsById(project.getId())) {
-			Project existingProject = projectRepository.findById(project.getId()).orElse(null);
-			existingProject.setName(project.getName());
-			existingProject.setStartDate(project.getStartDate());
-			existingProject.setEndDate(project.getEndDate());
-			if (null != project.getTechStacks()) {
-				List<TechStack> input = existingProject.getTechStacks();
-				input.addAll(project.getTechStacks());
+		if (projectRepository.existsById(id)) {
+			ProjectDto existingProject = Mapper.convertIntoDto(projectRepository.findById(id).orElse(null));
+			existingProject.setName(projectDto.getName());
+			existingProject.setStartDate(projectDto.getStartDate());
+			existingProject.setEndDate(projectDto.getEndDate());
+			if (null != projectDto.getTechStacks()) {
+				List<TechStackDto> input = existingProject.getTechStacks();
+				input.addAll(projectDto.getTechStacks());
 				existingProject.setTechStacks(input);
 			}
-			projectRepository.save(existingProject);
-			projectRepository.save(project);	
-		    message = project.getName() + " Update Successfully";
+			projectRepository.save(Mapper.convertIntoEntity(existingProject));	
+		    message = projectDto.getName() + " Update Successfully";
 		} else {
 			message = "Project not found";
 		}

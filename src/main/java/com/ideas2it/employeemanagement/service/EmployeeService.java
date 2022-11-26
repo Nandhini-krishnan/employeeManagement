@@ -1,18 +1,29 @@
 package com.ideas2it.employeemanagement.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ideas2it.employeemanagement.model.Employee;
+import com.ideas2it.employeemanagement.model.EmployeeDto;
+import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
 
 public interface EmployeeService {
 
-	Employee insertEmployee(Employee employee);
+	EmployeeDto insertEmployee(EmployeeDto employeeDto);
 	
-    List<Employee> getEmployees();
+    List<EmployeeDto> getEmployees() throws EmployeeManagementException;
 	
-    Employee getEmployeeById(int id);
+    EmployeeDto getEmployeeById(int id);
     
 	String deleteEmployeeById(int id);
 
-	String updateEmployee(Employee employee);
+	String updateEmployee(EmployeeDto employeeDto, int id);
+	
+	List<EmployeeDto> getEmployeesInRange(Date startDate, Date endDate);
+	
+	List<EmployeeDto> getEmployeesByMultipleId(List<Integer> listOfId);
+	
+	List<EmployeeDto> searchEmployees(String keyword);
+	
+	
 }

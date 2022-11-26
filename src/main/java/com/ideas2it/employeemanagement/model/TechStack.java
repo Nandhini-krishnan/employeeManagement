@@ -14,10 +14,13 @@ import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * <h1>Project</h1>
  */
-@Component
+
+
 @Entity
 @Table(name = "tech_stacks")
 @SQLDelete(sql = "update tech_stacks set is_deleted = 1 where id =?")
@@ -29,7 +32,7 @@ public class TechStack extends BaseModel {
     @Column(nullable = false)
     private float version;
 
-    @ManyToMany(mappedBy = "techStacks", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "techStacks")
     List<Project> projects;
 
     public TechStack() {}

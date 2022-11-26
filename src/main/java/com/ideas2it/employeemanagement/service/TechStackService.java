@@ -2,17 +2,21 @@ package com.ideas2it.employeemanagement.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.ideas2it.employeemanagement.model.TechStack;
+import com.ideas2it.employeemanagement.model.TechStackDto;
+import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
 
 public interface TechStackService {
 
-	TechStack insertTechStack(TechStack techStack);
+	TechStackDto insertTechStack(TechStackDto techStackDto);
 
-	List<TechStack> getTechStacks();
+	List<TechStackDto> getTechStacks() throws EmployeeManagementException;
 
-	TechStack getTechStackById(int id);
+	TechStackDto getTechStackById(int id);
 
 	String deleteTechStackById(int id);
 
-	String updateTechStack(TechStack techStack);
+	String updateTechStack(TechStackDto techStackDto, int id);
 }
