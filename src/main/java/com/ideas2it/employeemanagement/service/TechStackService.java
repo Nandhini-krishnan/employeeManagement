@@ -14,9 +14,9 @@ public interface TechStackService {
 
 	List<TechStackDto> getTechStacks() throws EmployeeManagementException;
 
-	TechStackDto getTechStackById(int id);
+	TechStackDto getTechStackById(int id) throws EmployeeManagementException;
 
-	String deleteTechStackById(int id);
+	String deleteTechStackById(int id) throws EmployeeManagementException;
 
-	String updateTechStack(TechStackDto techStackDto, int id);
+	String updateTechStack(TechStackDto techStackDto, int id) throws EmployeeManagementException;
 }

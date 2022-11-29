@@ -13,11 +13,15 @@ import com.ideas2it.employeemanagement.model.Employee;
 
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-     List<Employee> findByDateOfJoinBetween(Date startDate, Date endDate);
+	
+	@Query(value = "select count(id) from employees" , nativeQuery = true)
+	Long getEmployeesCount();
      
-     List<Employee> findByIdIn(List<Integer> listOfId);
+	List<Employee> findByDateOfJoinBetween(Date startDate, Date endDate);
       
-     @Query("select e from Employee e where e.name like %:keyword% or e.address like %:keyword% or e.previousOrganisationName like %:keyword% or e.bloodGroup like %:keyword%")
-     List<Employee> searchEmployees(@Param("keyword") String keyword);
+	List<Employee> findByIdIn(List<Integer> listOfId);
+      
+    @Query("select e from Employee e where e.name like %:keyword% or e.address like %:keyword% or e.previousOrganisationName like %:keyword% or e.bloodGroup like %:keyword%")
+    List<Employee> searchEmployees(@Param("keyword") String keyword);
 }
 

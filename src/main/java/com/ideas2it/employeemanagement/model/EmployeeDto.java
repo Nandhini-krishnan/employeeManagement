@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import org.springframework.stereotype.Component;
 
 import com.ideas2it.employeemanagement.util.DateUtil;
@@ -12,21 +16,33 @@ import com.ideas2it.employeemanagement.util.exception.EmployeeManagementExceptio
 
 @Component
 public class EmployeeDto {
-
+   	
+	private int id;
+    
+	private String employeeCode;
+	
+	@NotNull(message = "Employee name should not be null or empty")
+	@Pattern(regexp = "[^\\s][[^0-9]a-zA-Z\\s]*", message = "only alphabets and space are allowed")
 	private String name;
 
-	private String employeeCode;
-
+	@NotNull(message = "Employee name should not be null or empty")
+	@Pattern(regexp = "[^\\s][\\w\\-,/\\s\\w\\-,/]*", message = "only alphanumeric,space,special character(- , /) are allowed")
+	@Size(min=5, max=25, message = "Please enter the addressess between 5 and 255 characters")
 	private String address;
 
+	@NotNull(message = "Blood Group should not be null or empty")
 	private BloodGroup bloodGroup;
 
+	@NotNull(message = "Date of Birth should not be null or empty")
 	private Date dateOfBirth;
 
+	@NotNull(message = "Experience should not be null or empty")
 	private boolean experience;
 
+	@NotNull(message = "Date of Join should not be null or empty")
 	private Date dateOfJoin;
 
+	@Pattern(regexp = "[^\\s][\\w\\s\\w]*$", message = "only alphanumeric and sapce are allowed")
 	private String previousOrganisationName;
 
 	private List<ProjectDto> projects;
@@ -45,6 +61,14 @@ public class EmployeeDto {
 		this.previousOrganisationName = previousOrganisationName;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}

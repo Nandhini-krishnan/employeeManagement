@@ -1,7 +1,6 @@
 package com.ideas2it.employeemanagement.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -25,60 +24,58 @@ import com.ideas2it.employeemanagement.util.exception.EmployeeManagementExceptio
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-	
+
 	@Autowired
 	private EmployeeService employeeService;
-	
+
 	@PostMapping("/insert")
-	public ResponseEntity<EmployeeDto> insertEmployee(@RequestBody EmployeeDto employeeDto) {
-		EmployeeDto createdEmployeeDto = employeeService.insertEmployee(employeeDto);
-		if(null != createdEmployeeDto) {
-			return ResponseEntity.of(Optional.of(employeeDto));
-		}else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	public ResponseEntity<EmployeeDto> insertEmployee(@Valid @RequestBody EmployeeDto employeeDto)
+			throws EmployeeManagementException {
+		EmployeeDto createdEmployee = null;
+		if (DateUtil.isValidAge(employeeDto.getDateOfBirth())
+				&& DateUtil.compareTwoDates(employeeDto.getDateOfJoin(), employeeDto.getDateOfBirth())) {
+			createdEmployee = employeeService.insertEmployee(employeeDto);
 		}
+		return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/get")
-	public List<EmployeeDto> getEmployees() throws EmployeeManagementException {
-		return employeeService.getEmployees();		
+	public ResponseEntity<List<EmployeeDto>> getEmployees() throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.FOUND).body(employeeService.getEmployees());
 	}
-	
+
 	@GetMapping("/getById/{id}")
-	public EmployeeDto getEmployeeById(@PathVariable int id) {
-		return employeeService.getEmployeeById(id);		
+	public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable int id) throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.FOUND).body(employeeService.getEmployeeById(id));
 	}
-	
+
 	@DeleteMapping("/remove/{id}")
-	public String deleteEmployeeById(@PathVariable int id) {
-		return employeeService.deleteEmployeeById(id);
+	public ResponseEntity<String> deleteEmployeeById(@PathVariable int id) throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.OK).body(employeeService.deleteEmployeeById(id));
 	}
-	
+
 	@PutMapping("/update/{id}")
-	public String updateEmployee(@RequestBody EmployeeDto employee, @PathVariable int id) {
-		return employeeService.updateEmployee(employee, id); 
+	public ResponseEntity<String> updateEmployee(@RequestBody EmployeeDto employee, @PathVariable int id)
+			throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.OK).body(employeeService.updateEmployee(employee, id));
 	}
-	
+
 	@GetMapping("/getEmployeesInRange/{startDate}/{endDate}")
-	public List<EmployeeDto> getEmployeesInRange(@PathVariable String startDate, @PathVariable String endDate) {
-		List<EmployeeDto> employees = null;
-		try {
-			employees = employeeService.getEmployeesInRange(DateUtil.getParsedDate(startDate), DateUtil.getParsedDate(endDate));
-		} catch (EmployeeManagementException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return employees;
+	public ResponseEntity<List<EmployeeDto>> getEmployeesInRange(@PathVariable String startDate, @PathVariable String endDate)
+			throws EmployeeManagementException {
+		List<EmployeeDto> employees = employeeService.getEmployeesInRange(DateUtil.getParsedDate(startDate), DateUtil.getParsedDate(endDate));
+		return ResponseEntity.status(HttpStatus.FOUND).body(employees);
 	}
-	
+
 	@GetMapping("/getEmployeesByMultipleId")
-	public List<EmployeeDto> getEmployeesByMultipleId(@RequestBody List<Integer> listOfId) {
-		return employeeService.getEmployeesByMultipleId(listOfId);
+	public ResponseEntity<List<EmployeeDto>> getEmployeesByMultipleId(@RequestBody List<Integer> listOfId)
+			throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.FOUND).body(employeeService.getEmployeesByMultipleId(listOfId));
 	}
-	
+
 	@GetMapping("/search/{keyword}")
-	public List<EmployeeDto> searchEmployees(@PathVariable String keyword) {
-		return employeeService.searchEmployees(keyword);
+	public ResponseEntity<List<EmployeeDto>> searchEmployees(@PathVariable String keyword) throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.FOUND).body(employeeService.searchEmployees(keyword));
 	}
-	
+
 }

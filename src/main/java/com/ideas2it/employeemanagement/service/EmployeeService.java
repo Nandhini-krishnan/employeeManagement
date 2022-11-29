@@ -13,17 +13,17 @@ public interface EmployeeService {
 	
     List<EmployeeDto> getEmployees() throws EmployeeManagementException;
 	
-    EmployeeDto getEmployeeById(int id);
+    EmployeeDto getEmployeeById(int id) throws EmployeeManagementException;
     
-	String deleteEmployeeById(int id);
+	String deleteEmployeeById(int id) throws EmployeeManagementException;
 
-	String updateEmployee(EmployeeDto employeeDto, int id);
+	String updateEmployee(EmployeeDto employeeDto, int id) throws EmployeeManagementException;
 	
-	List<EmployeeDto> getEmployeesInRange(Date startDate, Date endDate);
+	List<EmployeeDto> getEmployeesInRange(Date startDate, Date endDate) throws EmployeeManagementException;
 	
-	List<EmployeeDto> getEmployeesByMultipleId(List<Integer> listOfId);
+	List<EmployeeDto> getEmployeesByMultipleId(List<Integer> listOfId) throws EmployeeManagementException;
 	
-	List<EmployeeDto> searchEmployees(String keyword);
+	List<EmployeeDto> searchEmployees(String keyword) throws EmployeeManagementException;
 	
 	
 }

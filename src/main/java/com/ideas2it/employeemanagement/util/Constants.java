@@ -4,46 +4,7 @@ package com.ideas2it.employeemanagement.util;
  * Handles the constant related to employee
  */
 public class Constants {
-    public static final String EMPLOYEE_OPTIONS = "Choose:\n1.Create Employee"
-	    + "\n2.Assign Projects"
-	    + "\n3.Show Employees"
-	    + "\n4.Search Employees"
-	    + "\n5.Show Employees By Experience"
-	    + "\n6.Show Employees By Date Of Join"
-	    + "\n7.Show Employees By Project Id"
-	    + "\n8.Show Employees By Multiple Id"
-	    + "\n9.Show Employee By Id"
-	    + "\n10.Delete Employee"
-	    + "\n11.Update Employee"
-	    + "\n12.Exit";
-    public static final String UPDATE_OPTIONS = "Choose the details you want to update:"
-	    + "\n1.Name \n2.Address \n3.Bloodgroup"
-	    + "\n4.Date of birth \n5.Experience"
-	    + "\n6.4.Date of joining"
-	    + "\n7.Previoue organisation name"
-	    + "\n8.Exit";
-    public static final String BLOODGROUP_OPTIONS = "Choose the blood group:"
-	    + "\n1.A+ve \n2.A-ve \n3.B+ve"
-	    + "\n4.B-ve \n5.O+ve \n6.O-ve \n7.AB+ve \n8.AB-ve"
-	    + "\n9.A1+ve \n10.A1-ve \n11.A1B+ve \n12.A1B-ve"
-	    + "\n13.A2B+ve \n14.A2B-ve \n15.others";
-    public static final String PROJECT_OPTIONS = "Choose:\n1.Create Project"
-	    + "\n2.Assign Tech Stack"
-	    + "\n3.Show Projects"
-	    + "\n4.Show Project By Id"
-	    + "\n5.Show Projects By Employee Id"
-	    + "\n6.Update Project"
-	    + "\n7.Delete Project"
-	    + "\n8.Exit";
-    public static final String TECH_STACK_OPTIONS = "Choose:\n1.Create Tech Stack"
-	    + "\n2.Show Tech Stacks"
-	    + "\n3.Show Tech Stack By Id"
-	    + "\n4.Show Tech Stacks By Project Id"
-	    + "\n5.Delete Tech Stack"
-	    + "\n6.Update Tech Stack"
-	    + "\n7.Exit";
-    public static final String EMPLOYEE_MANAGEMENT_OPTIONS = "Choose: \n1.Employee \n2.Project "
-	    + "\n3.Tech Stack \n4.Exit";
+    
     public static final String INVALID_OPTION = "Invalid Option \nPlease Choose the valid option";
     public static final String EXIT_MESSAGE = "You are exited";
     public static final String ENTER_NAME = "Enter the name";

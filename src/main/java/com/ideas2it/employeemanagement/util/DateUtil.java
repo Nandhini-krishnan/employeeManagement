@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.http.HttpStatus;
+
 import com.ideas2it.employeemanagement.util.Constants;
 import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
 
@@ -27,7 +29,7 @@ public class DateUtil {
             java.util.Date parsedDate = formatter.parse(date);   
             return parsedDate;
         } catch (ParseException parseException) {
-            throw new EmployeeManagementException(Constants.DATE_RANGE_EXCEED_ERROR);
+            throw new EmployeeManagementException(Constants.DATE_RANGE_EXCEED_ERROR, "400", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -41,7 +43,7 @@ public class DateUtil {
     public static boolean isValidAge(java.util.Date date) throws EmployeeManagementException {
         int age =  differenceBetweenTwoDates(date, getCurrentDate());
         if (!(age > 18 && age <= 80)) {
-            throw new EmployeeManagementException(Constants.EMPLOYEE_AGE_ERROR);
+            throw new EmployeeManagementException(Constants.EMPLOYEE_AGE_ERROR, "400", HttpStatus.BAD_REQUEST);
         }  
         return true;
     }
@@ -55,7 +57,7 @@ public class DateUtil {
      */
     public static String formatDate(java.util.Date date) throws EmployeeManagementException {
         if (null == date) {
-            throw new EmployeeManagementException(Constants.INPUT_NULL_ERROR);
+            throw new EmployeeManagementException(Constants.INPUT_NULL_ERROR, "400", HttpStatus.BAD_REQUEST);
         }
         return formatter.format(date);
     }
@@ -64,17 +66,9 @@ public class DateUtil {
         return new java.util.Date();
     }
 
-    public static java.sql.Date convertIntoSqlDate(java.util.Date date) {
-        return new java.sql.Date(date.getTime());
-    }
-    
-    public static java.util.Date convertIntoUtilDate(Date date) {
-        return new java.util.Date(date.getTime());
-    }
-
     public static boolean compareTwoDates(java.util.Date dateOne, java.util.Date dateTwo) throws EmployeeManagementException {
         if (!(dateOne.compareTo(dateTwo) > 0)) {
-            throw new EmployeeManagementException(Constants.DATE_OF_JOINING_ERROR);
+            throw new EmployeeManagementException(Constants.DATE_OF_JOINING_ERROR, "400", HttpStatus.BAD_REQUEST);
         }
         return true;
     }    
@@ -96,7 +90,7 @@ public class DateUtil {
     public static int  differenceBetweenTwoDates(java.util.Date dateOne, java.util.Date dateTwo) throws EmployeeManagementException {
         long yearsDifference;
         if (null == dateOne || null == dateTwo) {
-            throw new EmployeeManagementException(Constants.INPUT_NULL_ERROR);
+            throw new EmployeeManagementException(Constants.INPUT_NULL_ERROR, "400");
         } else {
             long timeDifference = dateTwo.getTime() - dateOne.getTime();
             yearsDifference = (timeDifference / Constants.TIME_TO_YEAR_CONVERSION);   

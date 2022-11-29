@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ideas2it.employeemanagement.model.TechStack;
+import com.ideas2it.employeemanagement.model.ProjectDto;
 import com.ideas2it.employeemanagement.model.TechStackDto;
 import com.ideas2it.employeemanagement.service.TechStackService;
 import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
@@ -28,28 +29,28 @@ public class TechStackController {
 	private TechStackService techStackService;
 	
 	@PostMapping("/insert")
-	public TechStackDto insertTechStack(@RequestBody TechStackDto techStackDto) {
-		return techStackService.insertTechStack(techStackDto);		
+	public ResponseEntity<TechStackDto> insertTechStack(@RequestBody TechStackDto techStackDto) {
+		return new ResponseEntity<>(techStackService.insertTechStack(techStackDto), HttpStatus.CREATED);		
 	}
 	
 	@GetMapping("/get")
 	public ResponseEntity<List<TechStackDto>> getTechStacks() throws EmployeeManagementException {
-		return ResponseEntity.of(Optional.of(techStackService.getTechStacks()));		
+		return ResponseEntity.status(HttpStatus.FOUND).body(techStackService.getTechStacks());		
 	}
 	
 	@GetMapping("/getById")
-	public TechStackDto getTechStackById(@RequestParam int id) {
-		return techStackService.getTechStackById(id);		
+	public ResponseEntity<TechStackDto> getTechStackById(@RequestParam int id) throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.FOUND).body(techStackService.getTechStackById(id));		
 	}
 	
 	@DeleteMapping("/remove/{id}")
-	public String deleteTechStackById(@PathVariable int id) {
-		return techStackService.deleteTechStackById(id);
+	public ResponseEntity<String> deleteTechStackById(@PathVariable int id) throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.OK).body(techStackService.deleteTechStackById(id));
 	}
 	
 	@PutMapping("/update/{id}")
-	public String updateProject(@RequestBody TechStackDto techStackDto, @PathVariable int id) {
-		return techStackService.updateTechStack(techStackDto, id); 
+	public ResponseEntity<String> updateProject(@RequestBody TechStackDto techStackDto, @PathVariable int id) throws EmployeeManagementException {
+		return ResponseEntity.status(HttpStatus.OK).body(techStackService.updateTechStack(techStackDto, id)); 
 	}
 	
 }
