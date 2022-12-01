@@ -24,8 +24,13 @@ import com.ideas2it.employeemanagement.util.exception.EmployeeManagementExceptio
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
+	
+	@GetMapping("/welcome")
+	public String welcome() {
+		return "WELCOME..!";
+	}
 
-	@Autowired
+	@Autowired 
 	private EmployeeService employeeService;
 
 	@PostMapping("/insert")
