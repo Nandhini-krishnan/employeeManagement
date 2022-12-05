@@ -1,4 +1,4 @@
-package com.ideas2it.employeemanagement.model;
+package com.ideas2it.employeemanagement.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +48,11 @@ public class TechStackDto {
 		return projects;
 	}
 
+	/**
+	 * <p>
+	 * To display the tech stack.
+	 * </p>
+	 */
 	@Override
 	public String toString() {
 		StringBuilder techStack = new StringBuilder();

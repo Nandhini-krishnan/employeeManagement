@@ -9,12 +9,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * <p>
+ * User class has the getters and setters for user details.
+ * </p>
+ *
+ * @author  Naganandhini
+ * @version  1.0  28-NOV-2022
+ */
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {

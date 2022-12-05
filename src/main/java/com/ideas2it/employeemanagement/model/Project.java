@@ -113,41 +113,4 @@ public class Project extends BaseModel {
     public List<TechStack> getTechStacks() {
 	return techStacks;
     }
-
-    /**
-     * <p>
-     * To display the project.
-     * </p>
-     */
-    @Override
-    public String toString() {
-	StringBuilder project = new StringBuilder();
-	project.append("\nProject Id: ");
-	project.append(getId());
-	project.append("\nProject name: ");
-	project.append(name);
-	project.append("\nProject Start Date : ");
-	project.append(startDate);
-	project.append("\nProject End Date: ");
-	project.append(endDate);
-	project.append("\nDelete Status: ");
-	project.append(isDeleted());
-	project.append("\nLast Created Date and Time: ");
-	project.append(getCreatedAt());
-	project.append("\nLast Updated Date and Time: ");
-	project.append(getUpdatedAt());
-	project.append("\nEmployees: ");
-	if (null != employees && !employees.isEmpty()) {
-	    project.append(employees.stream().map(employee -> employee.getName()).collect(Collectors.joining(",")));
-	} else {
-	    project.append(" No employees assigned");
-	}
-	project.append("\nTech Stacks: ");
-	if (null != techStacks && !techStacks.isEmpty()) {
-	    project.append(techStacks.stream().map(employee -> employee.getName()).collect(Collectors.joining(",")));
-	} else {
-	    project.append(" No tech stacks assigned");
-	}
-	return project.toString();
-    }
 }

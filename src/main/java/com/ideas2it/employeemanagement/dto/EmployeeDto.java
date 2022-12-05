@@ -1,4 +1,4 @@
-package com.ideas2it.employeemanagement.model;
+package com.ideas2it.employeemanagement.dto;
 
 import java.util.Date;
 import java.util.List;

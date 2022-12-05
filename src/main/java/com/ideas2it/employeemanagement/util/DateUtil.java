@@ -1,9 +1,7 @@
 package com.ideas2it.employeemanagement.util;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.springframework.http.HttpStatus;
 
@@ -21,7 +19,7 @@ public class DateUtil {
      *
      * @param date - a date to be parsed.
      * @return     - parsed date
-     * @throws CustomException - when the given date is not in dd-MM-yyyy format
+     * @throws CustomException - when the given date is not in MM-dd-yyyy format
      */
     public static java.util.Date getParsedDate(String date) throws EmployeeManagementException {
         formatter.setLenient(false);
@@ -49,7 +47,7 @@ public class DateUtil {
     }
 
     /**
-     * To get the date in "dd-MM-yyyy" format. 
+     * To get the date in "MM-dd-yyyy" format. 
      *
      * @param date - a date to be formatted
      * @return     - a formatted date
@@ -62,10 +60,24 @@ public class DateUtil {
         return formatter.format(date);
     }
 
+    /**
+     * To get the current date. 
+     *
+     * @return - the current date
+     */
     public static java.util.Date getCurrentDate() {
         return new java.util.Date();
     }
 
+    /**
+     * To compare the two dates 
+     *
+     * @param dateOne - a date for which resource to be filtered 
+     * @param dateTwo - a date for which resource to be filtered 
+     * @return - true if the first date is greater than the second date
+     *         - false otherwise
+     * @throws CustomException - when the given date is null.
+     */
     public static boolean compareTwoDates(java.util.Date dateOne, java.util.Date dateTwo) throws EmployeeManagementException {
         if (!(dateOne.compareTo(dateTwo) > 0)) {
             throw new EmployeeManagementException(Constants.DATE_OF_JOINING_ERROR, "400", HttpStatus.BAD_REQUEST);
@@ -75,7 +87,7 @@ public class DateUtil {
 
     /**
      * <p>
-     * Gets dd-MM-yyyy format date and gives the difference in years from given
+     * Gets MM-dd-yyyy format date and gives the difference in years from given
      * date to current date. 
      * </p>
      *

@@ -24,6 +24,14 @@ import org.hibernate.annotations.Where;
 
 import com.ideas2it.employeemanagement.util.enumeration.BloodGroup;
 
+/**
+ * <p>
+ * Employee class has the getters and setters for employee details.
+ * </p>
+ *
+ * @author Naganandhini
+ * @version 1.0 09-AUG-2022
+ */
 @Entity
 @Table(name = "employees")
 @SQLDelete(sql = "update employees set is_deleted = 1 where id =?")
@@ -146,48 +154,5 @@ public class Employee extends BaseModel {
 
 	public List<Project> getProjects() {
 		return projects;
-	}
-
-	/**
-	 * <p>
-	 * To display the employee.
-	 * </p>
-	 */
-	@Override
-	public String toString() {
-		StringBuilder employee = new StringBuilder();
-		employee.append("\nEmployee Id: ");
-		employee.append(getId());
-		employee.append("\nEmployee Code: ");
-		employee.append(employeeCode);
-		employee.append("\nEmployee name: ");
-		employee.append(name);
-		employee.append("\nEmployee address: ");
-		employee.append(address);
-		employee.append("\nBlood Group: ");
-		employee.append(bloodGroup);
-		employee.append("\nDate Of Birth: ");
-		employee.append(dateOfBirth);
-		employee.append("\nDate Of Join: ");
-		employee.append(dateOfJoin);
-		employee.append("\nExperience Status: ");
-		employee.append(experience);
-		employee.append("\nPrevious Organisation Name");
-		employee.append(previousOrganisationName);
-		employee.append("\nEmployee Age: ");
-		//employee.append(getAge());
-		employee.append("\nDelete Status: ");
-		employee.append(isDeleted());
-		employee.append("\nLast Created Date and Time: ");
-		employee.append(getCreatedAt());
-		employee.append("\nLast Updated Date and Time: ");
-		employee.append(getUpdatedAt());
-		employee.append("\nProjects: ");
-		if (null != projects && !projects.isEmpty()) {
-			employee.append(projects.stream().map(project -> project.getName()).collect(Collectors.joining(",")));
-		} else {
-			employee.append(" No projects assigned");
-		}
-		return employee.toString();
 	}
 }

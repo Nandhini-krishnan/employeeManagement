@@ -17,10 +17,13 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * <h1>Project</h1>
+ * <p>
+ * Tech stack class has the getters and setters for tech stack details.
+ * </p>
+ *
+ * @author  Naganandhini
+ * @version  1.0  09-AUG-2022
  */
-
-
 @Entity
 @Table(name = "tech_stacks")
 @SQLDelete(sql = "update tech_stacks set is_deleted = 1 where id =?")
@@ -67,30 +70,5 @@ public class TechStack extends BaseModel {
 
     public List<Project> getProjects() {
 	return projects;
-    }
-
-    @Override
-    public String toString() {
-	StringBuilder techStack = new StringBuilder();
-	techStack.append("\nTech Stack Id: ");
-	techStack.append(getId());
-	techStack.append("\nTech Stack name: ");
-	techStack.append(name);
-	techStack.append("\nVersion: ");
-	techStack.append(version);
-	techStack.append("\nDelete Status: ");
-	techStack.append(isDeleted());
-	techStack.append("\nLast Created Date and Time: ");
-	techStack.append(getCreatedAt());
-	techStack.append("\nLast Updated Date and Time: ");
-	techStack.append(getUpdatedAt());
-	techStack.append("\nProjects: ");
-	if (null != projects && !projects.isEmpty()) {
-	    techStack.append(projects.stream().map(project -> project.getName()).collect(Collectors.joining(",")));
-	} else {
-	    techStack.append(" No projects assigned");
-	}
-	return techStack.toString();
-
     }
 }

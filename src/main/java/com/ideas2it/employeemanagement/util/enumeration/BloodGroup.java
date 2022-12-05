@@ -1,8 +1,5 @@
 package com.ideas2it.employeemanagement.util.enumeration;
 
-import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
-import com.ideas2it.employeemanagement.util.Constants;
-
 public enum BloodGroup {
     A_POSITIVE(1),
     A_NEGATIVE(2),
@@ -24,25 +21,5 @@ public enum BloodGroup {
 
     BloodGroup(final int value) {
      this.value = value;
-    }
-    
-    /**
-    * Get the choice from the user and return the enum constant based on user choice.
-    *
-    * @param choice  the user choice to get the enum constant 
-    * @return        enum constant                       
-    */  
-    public static BloodGroup getBloodGroup(int value) throws EmployeeManagementException {
-        BloodGroup result = null;
-        for(BloodGroup bloodGroup : BloodGroup.values()) {
-            if(bloodGroup.value == value) {
-                result = bloodGroup;
-                break;
-            }
-        }
-        if (null == result) {
-            throw new EmployeeManagementException(Constants.INVALID_OPTION);
-        }
-        return result;
     }
 } 
