@@ -24,7 +24,7 @@ public interface ProjectService {
      * @return - the created project
      * @throws EmployeeManagementException - if the input is invalid
      */
-	ProjectDto createProject(ProjectDto projectDto);
+	ProjectDto createProject(ProjectDto projectDto) throws EmployeeManagementException;
 
 	/**
 	 * <p>

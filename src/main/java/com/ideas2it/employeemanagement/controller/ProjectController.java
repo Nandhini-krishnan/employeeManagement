@@ -48,11 +48,7 @@ public class ProjectController {
 	@PostMapping("/")
 	public ResponseEntity<ProjectDto> insertProject(@RequestBody ProjectDto projectDto)
 			throws EmployeeManagementException {
-		ProjectDto createdProject = null;
-		if (DateUtil.compareTwoDates(projectDto.getStartDate(), projectDto.getEndDate())) {
-			createdProject = projectService.createProject(projectDto);
-		}
-		return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
+		return new ResponseEntity<>(projectService.createProject(projectDto), HttpStatus.CREATED);
 	}
 
 	/**

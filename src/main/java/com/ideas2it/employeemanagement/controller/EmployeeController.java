@@ -49,12 +49,7 @@ public class EmployeeController {
 	@PostMapping("/")
 	public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto)
 			throws EmployeeManagementException {
-		EmployeeDto createdEmployee = null;
-		if (DateUtil.isValidAge(employeeDto.getDateOfBirth())
-				&& DateUtil.compareTwoDates(employeeDto.getDateOfJoin(), employeeDto.getDateOfBirth())) {
-			createdEmployee = employeeService.createEmployee(employeeDto);
-		}
-		return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
+		return new ResponseEntity<>(employeeService.createEmployee(employeeDto), HttpStatus.CREATED);
 	}
 
 	/**

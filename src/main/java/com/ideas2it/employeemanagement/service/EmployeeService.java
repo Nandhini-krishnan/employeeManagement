@@ -26,7 +26,7 @@ public interface EmployeeService {
      * @return - the created employee 
      * @throws EmployeeManagementException - if the input is invalid
      */
-	EmployeeDto createEmployee(EmployeeDto employeeDto);
+	EmployeeDto createEmployee(EmployeeDto employeeDto) throws EmployeeManagementException;
 	
 	/**
 	 * <p>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ideas2it.employeemanagement.repository.EmployeeRepository;
 import com.ideas2it.employeemanagement.service.EmployeeService;
 import com.ideas2it.employeemanagement.util.Constants;
+import com.ideas2it.employeemanagement.util.DateUtil;
 import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
 import com.ideas2it.employeemanagement.util.mapper.EmployeeMapper;
 import com.ideas2it.employeemanagement.dto.EmployeeDto;
@@ -32,11 +33,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	/**
 	 * {@inheritDoc}
+	 * @throws EmployeeManagementException 
 	 */
 	@Override
-	public EmployeeDto createEmployee(EmployeeDto employeeDto) {
-		employeeDto.setEmployeeCode(generateEmployeeCode());
-		return EmployeeMapper.convertIntoDto(employeeRepository.save(EmployeeMapper.convertIntoEntity(employeeDto)));
+	public EmployeeDto createEmployee(EmployeeDto employeeDto) throws EmployeeManagementException {
+		EmployeeDto createdEmployee = null;
+		if (DateUtil.isValidAge(employeeDto.getDateOfBirth())
+				&& DateUtil.compareTwoDates(employeeDto.getDateOfJoin(), employeeDto.getDateOfBirth())) {
+			employeeDto.setEmployeeCode(generateEmployeeCode());
+			createdEmployee = EmployeeMapper.convertIntoDto(employeeRepository.save(EmployeeMapper.convertIntoEntity(employeeDto)));
+		}		
+		return createdEmployee;
 	}
 
 	/**
@@ -147,7 +154,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	@Override
 	public List<EmployeeDto> searchEmployees(String keyword) throws EmployeeManagementException {
-		List<EmployeeDto> employees = Mapper.convertIntoEmployeesDto(employeeRepository.searchEmployees(keyword));
+		List<EmployeeDto> employees = EmployeeMapper.convertIntoEmployeesDto(employeeRepository.searchEmployees(keyword));
 		if (employees.isEmpty()) {
 			throw new EmployeeManagementException(Constants.NO_RECORD_FOUND, "404", HttpStatus.NOT_FOUND);
 		}

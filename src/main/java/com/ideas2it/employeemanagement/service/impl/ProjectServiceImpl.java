@@ -11,6 +11,7 @@ import com.ideas2it.employeemanagement.dto.TechStackDto;
 import com.ideas2it.employeemanagement.repository.ProjectRepository;
 import com.ideas2it.employeemanagement.service.ProjectService;
 import com.ideas2it.employeemanagement.util.Constants;
+import com.ideas2it.employeemanagement.util.DateUtil;
 import com.ideas2it.employeemanagement.util.exception.EmployeeManagementException;
 import com.ideas2it.employeemanagement.util.mapper.ProjectMapper;
 
@@ -31,10 +32,15 @@ public class ProjectServiceImpl implements ProjectService {
 
 	/**
 	 * {@inheritDoc}
+	 * @throws EmployeeManagementException 
 	 */
 	@Override
-	public ProjectDto createProject(ProjectDto projectDto) {
-		return ProjectMapper.convertIntoDto(projectRepository.save(ProjectMapper.convertIntoEntity(projectDto)));
+	public ProjectDto createProject(ProjectDto projectDto) throws EmployeeManagementException {
+		ProjectDto createdProject = null;
+		if (DateUtil.compareTwoDates(projectDto.getStartDate(), projectDto.getEndDate())) {
+			createdProject = ProjectMapper.convertIntoDto(projectRepository.save(ProjectMapper.convertIntoEntity(projectDto)));
+		}
+		return createdProject;
 	}
 
 	/**
